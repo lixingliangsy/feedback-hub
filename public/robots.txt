@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# LLM / AI answer-engine indexing
+LLM-Content: https://feedback-hub.lxsaihub.com/llms.txt
+
+Sitemap: https://feedback-hub.lxsaihub.com/sitemap.xml

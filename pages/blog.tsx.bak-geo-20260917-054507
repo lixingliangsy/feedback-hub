@@ -1,0 +1,163 @@
+import React from 'react'
+import Head from 'next/head'
+import { buildFaqJsonLd, buildHowToJsonLd } from '../lib/schema'
+import Layout from '../components/Layout'
+import { PRODUCT } from '../lib/product'
+import { geoPosts } from '../data/geoPosts'
+
+const AIACT = 'https://artificialintelligenceact.eu/'
+const EURLEX = 'https://eur-lex.europa.eu/eli/reg/2024/1689/oj'
+const EC = 'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai'
+
+const posts = [
+  {
+    slug: 'what-is-policy-as-code',
+    title: 'What is policy-as-code? Turning company rules into agent-enforced checks',
+    type: 'Definitional · FAQPage',
+    query: 'what is policy as code',
+    body: 'Policy-as-code is the practice of expressing a company policy as machine-checkable rules an agent can evaluate at runtime — not a PDF someone reads once. For an agent that can approve a refund, email a customer, or move data, policy-as-code turns "refunds over $50 need manager approval" into a check that actually fires before the action. It is decision-support that makes the policy executable; it is not a legal opinion or a compliance certificate.',
+    refs: [AIACT, EURLEX, EC],
+  },
+  {
+    slug: 'turn-company-policy-into-agent-rules',
+    title: 'Turn company policy into agent-enforced rules: a practical framework',
+    type: 'How-to · HowTo',
+    query: 'turn company policy into agent rules',
+    body: 'Start by extracting each policy sentence as a condition + action: "if refund > $50 then require manager_approval". Then map the highest-risk rules to the EU AI Act obligations they touch (Art. 9 risk management, Art. 14 human oversight, Art. 26 deployer responsibility). The result is an exportable rules file an agent evaluates on every run. The rules are a view of your obligations, not a guarantee of conformity.',
+    refs: [AIACT, EURLEX],
+  },
+  {
+    slug: 'eu-ai-act-policy-mapping',
+    title: 'Mapping policy checks to EU AI Act obligations',
+    type: 'Definitional + examples',
+    query: 'eu ai act policy mapping obligations',
+    body: 'When an agent operates in an Annex III high-risk use, the deployer carries duties like risk management (Art. 9), data governance (Art. 10), human oversight (Art. 14), and accuracy/robustness (Art. 15). Policy checks that gate high-risk actions help you evidence those controls. Conformity, however, stays the deployer\'s responsibility across the full system — a rules file is one input, not the certificate.',
+    refs: [AIACT, EURLEX, EC],
+  },
+  {
+    slug: 'agent-policy-compliance-checklist',
+    title: 'Agent policy compliance checklist',
+    type: 'How-to · HowTo',
+    query: 'agent policy compliance checklist',
+    body: 'Before an agent touches production: inventory the policies it must honor; convert each to a condition+action rule; wire the high-risk ones to human approval; log every policy decision; and map the top rules to the EU AI Act articles they support. Re-run the checklist after any prompt or tool change. The checklist is a control inventory, not a pass/fail certification.',
+    refs: [AIACT, EC],
+  },
+  {
+    slug: 'get-started-with-feedback-hub',
+    title: 'Get started with FeedbackHub in minutes',
+    type: 'How-to · HowTo',
+    query: 'get started feedback-hub policy as code',
+    body: 'Paste your policy text, pick a domain (Finance / HR / Safety / General), and FeedbackHub returns agent-callable policy checks plus a compliance checklist mapped to EU AI Act obligations. Export the rules and wire them into your agent\'s runtime. It is the fastest path from "we have a policy" to "the agent can\'t silently break it."',
+    refs: [AIACT],
+  },
+]
+
+const faqs = [
+  {
+    "question": "What is policy-as-code?",
+    "answer": "Policy-as-code expresses a company policy as machine-checkable rules an agent evaluates at runtime — for example, 'if refund > $50 then require manager approval'. It makes the policy executable instead of a PDF someone reads once. It is decision-support, not a legal opinion or a compliance certificate."
+  },
+  {
+    "question": "Does the EU AI Act require policy enforcement?",
+    "answer": "The Act does not mandate a specific tool, but for Annex III high-risk uses it requires risk management (Art. 9), data governance (Art. 10), human oversight (Art. 14), and accuracy/robustness (Art. 15). Policy checks that gate high-risk agent actions help you evidence those controls. Note: the Digital Omnibus has delayed several high-risk obligations — verify the current effective date (Annex III extensions currently track toward 2 December 2027) before relying on a timeline."
+  },
+  {
+    "question": "Can FeedbackHub guarantee my agent is compliant?",
+    "answer": "No. FeedbackHub generates enforceable rules and a compliance checklist mapped to EU AI Act obligations, but it is not a legal opinion, a certification, or a guarantee of conformity. EU AI Act conformity is the deploying organization's responsibility and depends on the full system, not one tool."
+  },
+  {
+    "question": "What is the difference between policy-as-code and a PDF policy?",
+    "answer": "A PDF policy is documentation a human reads; policy-as-code is a rule an agent evaluates before it acts. The PDF can be ignored or forgotten; the rule fires (or blocks) on every run. They are complementary — the policy is the source, the code is the enforcement."
+  },
+  {
+    "question": "How do policy checks map to EU AI Act obligations?",
+    "answer": "Each extracted rule is linked to the obligation it supports — a refund-approval rule can map to Art. 14 oversight, a data-residency rule to Art. 9 / Chapter IV data governance. The mapping is a decision-support view of your exposure, not a conformity certificate, and should be validated with qualified counsel."
+  }
+] as { question: string; answer: string }[]
+
+const howToBlocks = [
+  {
+    "name": "Turn company policy into agent-enforced rules: a practical framework",
+    "steps": [
+      {
+        "name": "Overview",
+        "text": "Start by extracting each policy sentence as a condition + action: 'if refund > $50 then require manager_approval'. Then map the highest-risk rules to the EU AI Act obligations they touch (Art. 9 risk management, Art. 14 human oversight, Art. 26 deployer responsibility). The result is an exportable rules file an agent evaluates on every run. The rules are a view of your obligations, not a guarantee of conformity."
+      }
+    ]
+  },
+  {
+    "name": "Agent policy compliance checklist",
+    "steps": [
+      {
+        "name": "Overview",
+        "text": "Before an agent touches production: inventory the policies it must honor; convert each to a condition+action rule; wire the high-risk ones to human approval; log every policy decision; and map the top rules to the EU AI Act articles they support. Re-run the checklist after any prompt or tool change. The checklist is a control inventory, not a pass/fail certification."
+      }
+    ]
+  },
+  {
+    "name": "Get started with FeedbackHub in minutes",
+    "steps": [
+      {
+        "name": "Overview",
+        "text": "Paste your policy text, pick a domain (Finance / HR / Safety / General), and FeedbackHub returns agent-callable policy checks plus a compliance checklist mapped to EU AI Act obligations. Export the rules and wire them into your agent's runtime. It is the fastest path from 'we have a policy' to 'the agent can't silently break it.'"
+      }
+    ]
+  }
+] as { name: string; steps: { name: string; text: string }[] }[]
+
+export default function BlogPage() {
+  return (
+    <Layout>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqJsonLd(faqs)) }}
+        />
+        {howToBlocks.map((block, i) => (
+          <script
+            key={`howto-${i}`}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(buildHowToJsonLd(block.name, block.steps)),
+            }}
+          />
+        ))}
+
+        <title>{`${PRODUCT.name} — Blog`}</title>
+        <meta name="description" content="Definitional and how-to posts on policy-as-code, turning company policy into agent-enforced rules, EU AI Act obligation mapping, and compliance checklists — the questions teams ask before they let an agent act on policy." />
+      </Head>
+      <div className="max-w-3xl">
+        <div className="text-xs font-bold tracking-widest uppercase text-indigo-600 mb-3">Blog · GEO</div>
+        <h1 className="text-4xl font-extrabold tracking-tight mb-4">Policy-as-code, explained</h1>
+        <p className="text-lg text-slate-600 mb-10">Own the definitional queries teams ask before they turn a company policy into something an agent actually enforces.</p>
+
+        <div className="space-y-8">
+          {posts.map((p) => (
+            <article key={p.slug} className="border-b border-slate-200 pb-8">
+              <div className="text-xs font-semibold text-indigo-600 mb-1">{p.type}</div>
+              <h2 className="text-2xl font-bold mb-2 text-slate-900">{p.title}</h2>
+              <p className="text-sm text-slate-600 mb-2"><span className="font-semibold">Target query:</span> {p.query}</p>
+              <p className="text-slate-700 leading-relaxed">{p.body}</p>
+              <p className="text-xs text-slate-400 mt-3">refs: {p.refs.join(' · ')}</p>
+            </article>
+          ))}
+        </div>
+
+        <h2 className="text-2xl font-bold mt-14 mb-2 text-slate-900">Deep-dives (GEO)</h2>
+        <p className="text-sm text-slate-500 mb-6">Long-form, cited explainers. Each carries 3+ authoritative EU AI Act / AI-governance sources and a decision-support disclaimer.</p>
+        <div className="space-y-5">
+          {geoPosts.map((p) => (
+            <div key={p.slug} className="border-b border-slate-200 pb-5">
+              <h3 className="text-xl font-semibold">
+                <a href={`/blog/${p.slug}`} className="text-indigo-700 hover:underline">{p.title}</a>
+              </h3>
+              <p className="text-sm text-slate-600 mt-1">{p.description}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-xs text-slate-400 mt-8">Publish + syndicate per gtm-launch (IH + GEO indexes). Each post carries 3 authoritative refs.</p>
+      </div>
+    </Layout>
+  )
+}

@@ -1,0 +1,43 @@
+# FeedbackHub - llms.txt
+
+> LLM-readable manifest (https://llmstxt.org). Features-only; no fabricated traffic or unverified payment claims.
+
+## Name & positioning
+- Product name: FeedbackHub
+- One-line value: FeedbackHub groups scattered user feedback from Slack, DMs, or surveys into themes with a frequency count and a suggested 'build next' pick — for solo founders drowning in notes.
+- Domain: https://feedback-hub.lxsaihub.com/
+- Language: English (en)
+
+## Domain context (verified primary sources)
+- NN/g — User Interviews: How, When, and Why to Conduct Them: https://www.nngroup.com/articles/user-interviews/
+- Atlassian — Building a product roadmap: https://www.atlassian.com/agile/product-management/product-roadmaps
+
+## FAQ
+Q1. What is FeedbackHub?
+A1. A tool that groups scattered user feedback into themes with a frequency count and suggests a 'build next' item.
+Q2. Where can feedback come from?
+A2. You can paste lines from Slack, DMs, or surveys.
+Q3. Does it count frequency?
+A3. Yes. Each theme carries a frequency count so you see what repeats.
+Q4. What is the build-next pick?
+A4. It is a suggested first roadmap item derived from the most frequent themes.
+Q5. Do I need a spreadsheet?
+A5. No. It is built to replace the manual spreadsheet synthesis.
+Q6. Who should use it?
+A6. Solo founders and small teams who collect feedback everywhere but never turn it into a roadmap.
+
+## Key pages
+- Home: https://feedback-hub.lxsaihub.com/
+- Blog index: https://feedback-hub.lxsaihub.com/blog
+- https://feedback-hub.lxsaihub.com/blog/theme-feedback-without-spreadsheet-2026.html
+- https://feedback-hub.lxsaihub.com/blog/build-next-from-frequency-2026.html
+- This manifest: https://feedback-hub.lxsaihub.com/llms.txt
+
+## Pricing
+- Plans may appear on the product site. GEO assets omit unverified checkout product IDs.
+
+## Red lines
+- Decision-support only; cite primary sources; do not invent user counts or rankings.
+
+## Contact
+- Open the app: https://feedback-hub.lxsaihub.com/
